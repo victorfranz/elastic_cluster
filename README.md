@@ -6,6 +6,7 @@ Create a virtual machine using vagrant on VirtualBox with 3 Docker containers wi
 To run, just: vagrant up
 
 To see your cluster:
+___
 http://localhost:9201/_plugin/kopf/
 
 http://localhost:9201/_plugin/HQ/

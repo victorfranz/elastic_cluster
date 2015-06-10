@@ -1,6 +1,6 @@
   # elastic node tasks
   - name: check or build image
-    docker_image: path="github.com/victorfranz/elastic_docker" name="dockerfile/elasticsearch" state=present timeout=1000000
+    docker_image: path="github.com/victorfranz/elastic_docker" name="dockerfile/elasticsearch" state=present timeout=2000000
 
   - shell: mkdir -p elasticnode{{ node_id }}/data
   - shell: mkdir -p elasticnode{{ node_id }}/work

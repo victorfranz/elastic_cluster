@@ -1,7 +1,7 @@
 # elastic_cluster
 Simple local elastic cluster for tests using vagrant + ansible + docker
 
-Create a virtual machine using vagrant on VirtualBox with 3 Docker containers with an elastic node each
+It creates a virtual machine using vagrant on VirtualBox with 3 Docker containers with an elastic node each.
 
 To run, just: vagrant up
 ___

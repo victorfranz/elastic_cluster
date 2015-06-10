@@ -1,0 +1,10 @@
+cluster.name: elasticsearch
+
+script.disable_dynamic: false
+script.groovy.sandbox.enabled: true
+
+path:
+  data: /data/data
+  logs: /data/logs
+  plugins: /data/plugins
+  work: /data/work

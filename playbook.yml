@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: true
+  roles:
+    - angstwad.docker_ubuntu
+
+  tasks:
+  - shell: sudo usermod -a -G docker vagrant
+
+  - name: Install docker-py
+    pip: name=docker-py version=1.1.0
+
+  - include: ansible/tasks/elastic-node.yml node_id=1
+  - include: ansible/tasks/elastic-node.yml node_id=2
+  - include: ansible/tasks/elastic-node.yml node_id=3

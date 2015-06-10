@@ -1,0 +1,30 @@
+  # elastic node tasks
+  - name: check or build image
+    docker_image: path="github.com/victorfranz/elastic_docker" name="dockerfile/elasticsearch" state=present timeout=1000000
+
+  - shell: mkdir -p elasticnode{{ node_id }}/data
+  - shell: mkdir -p elasticnode{{ node_id }}/work
+  - shell: mkdir -p elasticnode{{ node_id }}/logs
+  - shell: mkdir -p elasticnode{{ node_id }}/plugins
+  - shell: mkdir -p elasticnode{{ node_id }}/config
+
+   # Synchronization of src on the control machine to dest on the remote hosts
+  - copy: src=./config/elasticsearch.yml dest=/home/vagrant/elasticnode{{ node_id }}/config/elasticsearch.yml owner=root group=root mode=0644
+
+  - name: start elasticnode{{ node_id }}
+    docker:
+        image: dockerfile/elasticsearch
+        name: elasticnode{{ node_id }}
+        command: /elasticsearch/bin/elasticsearch -Des.config=/data/config/elasticsearch.yml -Des.node.name=elasticnode{{ node_id }} -Des.logger.level=DEBUG
+        hostname: elasticnode{{ node_id }}
+        memory_limit: 512MB
+        ports:
+        - "920{{ node_id }}:9200"
+        - "930{{ node_id }}:9300"
+        state: started
+        publish_all_ports: true
+        volumes: 
+        - /home/vagrant/elasticnode{{ node_id }}:/data
+
+  - shell: docker exec elasticnode{{ node_id }} /elasticsearch/bin/plugin --install lmenezes/elasticsearch-kopf
+  - shell: docker exec elasticnode{{ node_id }} /elasticsearch/bin/plugin --install royrusso/elasticsearch-HQ
